@@ -116,7 +116,7 @@ end)
 
 local Farm = Tabs.Main:AddSection("New Things")
 
-local Toggle = Tabs.Main:AddToggle("GodModeToggle", {Title = "Godmode (Testing)", Default = false})
+local Toggle = Tabs.Main:AddToggle("GodModeToggle", {Title = "Godmode", Default = false})
 local originalCooldown = nil
 
 Toggle:OnChanged(function()
@@ -432,33 +432,40 @@ local Tabs = {
 }
 local Farm = Tabs.Main:AddSection("Please use Auto Execute! save config in Settings!")
 
-local Toggle = Tabs.Main:AddToggle("AutoKillBoss", {Title = "Auto Kill Boss", Default = false})
+local Toggle = Tabs.Main:AddToggle("Auto Kill Boss", {
+    Title = "Instant Kill Boss",
+    Default = false
+})
 
-local function killthebitch()
-    while getgenv().autokillboss do
-            for i, mob in pairs(mobs:GetChildren()) do
-                local humanoid = mob:FindFirstChildOfClass("Humanoid")
-                if humanoid then
-                    local mobPosition = mob.HumanoidRootPart.Position
-                    local attackerPosition = attacker.HumanoidRootPart.Position
-                    local distance = (mobPosition - attackerPosition).Magnitude
+Toggle:OnChanged(function()
+    getgenv().InstaKillBoss = Toggle.Value
+    if getgenv().InstaKillBoss then
+    else
+    end
+end)
+pcall(function ()
+    game:GetService("RunService").Heartbeat:Connect(function()
+    if getgenv().InstaKillBoss then
+        local localPlayer = game.Players.LocalPlayer
+        local jogador = localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart")
 
-                    if distance <= maxAttackDistance then
-                        humanoid.Health = 0  
+        if jogador then
+            local distanciaLimite = 800
+
+            for _, mob in pairs(workspace.Objects.Mobs:GetChildren()) do
+                if mob:FindFirstChild("HumanoidRootPart") then
+                    local distancia = (mob.HumanoidRootPart.Position - jogador.Position).magnitude
+                    if distancia < distanciaLimite then
+                        local humanoide = mob:FindFirstChild("Humanoid")
+                        if humanoide then
+                            humanoide.Health = 0
+                        end
                     end
                 end
             end
         end
-        wait(0) 
     end
-end
-
-Toggle:OnChanged(function()
-    getgenv().autokillboss = Toggle.Value
-
-    if getgenv().autokillboss then
-        killthebitch() 
-    end
+end)
 end)
 
 local Toggle = Tabs.Main:AddToggle("AutoTeleport", {Title = "Auto Teleport Boss Spawn", Default = false})
@@ -1066,7 +1073,7 @@ SaveManager:BuildConfigSection(Tabs.Settings)
 Window:SelectTab(1)
 
 Fluent:Notify({
-    Title = "Fluent",
+    Title = "Tokyo Hub",
     Content = "The script has been loaded.",
     Duration = 8
 })
