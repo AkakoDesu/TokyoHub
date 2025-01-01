@@ -116,7 +116,7 @@ end)
 
 local Farm = Tabs.Main:AddSection("New Things")
 
-local Toggle = Tabs.Main:AddToggle("GodModeToggle", {Title = "Godmode (Testing)", Default = false})
+local Toggle = Tabs.Main:AddToggle("GodModeToggle", {Title = "Gojo's Mugen (Godmode)", Default = false})
 local originalCooldown = nil
 
 Toggle:OnChanged(function()
@@ -428,7 +428,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
 end)
 
 local Tabs = {
-    Main = Window:AddTab({ Title = "Auto Boss", Icon = "settings" }),
+    Main = Window:AddTab({ Title = "Auto Boss (🚧)", Icon = "settings" }),
 }
 local Farm = Tabs.Main:AddSection("Please use Auto Execute! save config in Settings!")
 
@@ -436,7 +436,6 @@ local Toggle = Tabs.Main:AddToggle("AutoKillBoss", {Title = "Auto Kill Boss", De
 
 local function killthebitch()
     while getgenv().autokillboss do
-        if autoFarmEnabled and mobs then
             for i, mob in pairs(mobs:GetChildren()) do
                 local humanoid = mob:FindFirstChildOfClass("Humanoid")
                 if humanoid then
