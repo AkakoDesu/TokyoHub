@@ -430,7 +430,7 @@ end)
 local Tabs = {
     Main = Window:AddTab({ Title = "Auto Boss", Icon = "settings" }),
 }
-local Farm = Tabs.Main:AddSection("Please use Auto Execute! and save your config in Settings!")
+local Farm = Tabs.Main:AddSection("Please use Auto Execute! save config in Settings!")
 
 local Toggle = Tabs.Main:AddToggle("AutoKillBoss", {Title = "Auto Kill Boss", Default = false})
 
@@ -474,7 +474,6 @@ local function autoTeleportToMob()
             end
 
             if closestMob then
-                -- Teleportando o jogador até o mob mais próximo
                 attacker.HumanoidRootPart.CFrame = closestMob.HumanoidRootPart.CFrame
             end
         end
@@ -1041,8 +1040,8 @@ SaveManager:IgnoreThemeSettings()
 
 SaveManager:SetIgnoreIndexes({})
 
-InterfaceManager:SetFolder("UniverseHub")
-SaveManager:SetFolder("UniverseHub/JJI")
+InterfaceManager:SetFolder("TokyoHub")
+SaveManager:SetFolder("TokyoHub/JJI")
 
 InterfaceManager:BuildInterfaceSection(Tabs.Settings)
 SaveManager:BuildConfigSection(Tabs.Settings)
