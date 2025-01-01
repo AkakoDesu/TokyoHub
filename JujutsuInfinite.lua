@@ -992,7 +992,7 @@ SaveManager:BuildConfigSection(Tabs.Settings)
 Window:SelectTab(1)
 
 Fluent:Notify({
-    Title = "Fluent",
+    Title = "Tokyo Hub",
     Content = "The script has been loaded.",
     Duration = 8
 })
