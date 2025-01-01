@@ -44,7 +44,7 @@ local Slider = Tabs.Main:AddSlider("Slider", {
     Title = "Loop Delay (Prefer setting it to 60-120 Seconds.)",
     Description = "More Time = Safe",
     Default = 60,
-    Min = 1,
+    Min = 60,
     Max = 120,
     Rounding = 1,
     Callback = function(Value)
