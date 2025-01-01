@@ -427,80 +427,6 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 end)
 
-local Tabs = {
-    Main = Window:AddTab({ Title = "Auto Boss (🚧)", Icon = "settings" }),
-}
-local Farm = Tabs.Main:AddSection("Please use Auto Execute! save config in Settings!")
-
-local Toggle = Tabs.Main:AddToggle("AutoKillBoss", {Title = "Auto Kill Boss", Default = false})
-
-local function killthebitch()
-    while getgenv().autokillboss do
-            for i, mob in pairs(mobs:GetChildren()) do
-                local humanoid = mob:FindFirstChildOfClass("Humanoid")
-                if humanoid then
-                    local mobPosition = mob.HumanoidRootPart.Position
-                    local attackerPosition = attacker.HumanoidRootPart.Position
-                    local distance = (mobPosition - attackerPosition).Magnitude
-
-                    if distance <= maxAttackDistance then
-                        humanoid.Health = 0  
-                    end
-                end
-            end
-        end
-        wait(0) 
-    end
-end
-
-Toggle:OnChanged(function()
-    getgenv().autokillboss = Toggle.Value
-
-    if getgenv().autokillboss then
-        killthebitch() 
-    end
-end)
-
-local Toggle = Tabs.Main:AddToggle("AutoTeleport", {Title = "Auto Teleport Boss Spawn", Default = false})
-
-local function autoTeleportToMob()
-    while getgenv().autotp do
-            local closestMob = nil
-            local closestDistance = maxAttackDistance
-            for i, mob in pairs(mobs:GetChildren()) do
-                local humanoid = mob:FindFirstChildOfClass("Humanoid")
-                if humanoid then
-                    local mobPosition = mob.HumanoidRootPart.Position
-                    local attackerPosition = attacker.HumanoidRootPart.Position
-                    local distance = (mobPosition - attackerPosition).Magnitude
-
-                    if distance < closestDistance then
-                        closestDistance = distance
-                        closestMob = mob
-                    end
-                end
-            end
-
-            if closestMob then
-                attacker.HumanoidRootPart.CFrame = closestMob.HumanoidRootPart.CFrame
-            end
-        end
-        wait(0)
-    end
-end
-
-Toggle:OnChanged(function()
-    getgenv().autotp = Toggle.Value
-
-    if getgenv().autotp then
-        autoTeleportToMob() 
-    end
-end)
-
-local Tabs = {
-    Main = Window:AddTab({ Title = "Player Options", Icon = "settings" }),
-}
-
 local Toggle = Tabs.Main:AddToggle("AutoTalisman", {Title = "Auto Collect Drops", Default = false})
 
 local function teleportToNextItem()
@@ -1066,7 +992,7 @@ SaveManager:BuildConfigSection(Tabs.Settings)
 Window:SelectTab(1)
 
 Fluent:Notify({
-    Title = "Fluent",
+    Title = "Tokyo Hub",
     Content = "The script has been loaded.",
     Duration = 8
 })
