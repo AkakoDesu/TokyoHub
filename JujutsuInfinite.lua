@@ -428,11 +428,11 @@ game:GetService("RunService").Heartbeat:Connect(function()
 end)
 
 local Tabs = {
-    Main = Window:AddTab({ Title = "Auto Boss (Use on Boss Stage)", Icon = "settings" }),
+    Main = Window:AddTab({ Title = "Auto Boss", Icon = "settings" }),
 }
 local Farm = Tabs.Main:AddSection("Please use Auto Execute! and save your config in Settings!")
 
-local Toggle = Tabs.Main:AddToggle("Auto Kill Boss", {Title = "Auto Collect Drops", Default = false})
+local Toggle = Tabs.Main:AddToggle("AutoKillBoss", {Title = "Auto Kill Boss", Default = false})
 
 local function autoFarmMobs()
     while true do
