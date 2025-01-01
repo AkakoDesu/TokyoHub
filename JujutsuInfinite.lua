@@ -116,7 +116,6 @@ end)
 
 local Farm = Tabs.Main:AddSection("New Things")
 
-
 local Toggle = Tabs.Main:AddToggle("GodModeToggle", {Title = "Godmode (Testing)", Default = false})
 local originalCooldown = nil
 
@@ -428,6 +427,60 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 end)
 
+local Tabs = {
+    Main = Window:AddTab({ Title = "Auto Boss (Use on Boss Stage)", Icon = "settings" }),
+}
+local Farm = Tabs.Main:AddSection("Please use Auto Execute! and save your config in Settings!")
+
+local Toggle = Tabs.Main:AddToggle("Auto Kill Boss", {Title = "Auto Collect Drops", Default = false})
+
+local function autoFarmMobs()
+    while true do
+        if autoFarmEnabled and mobs then
+            for i, mob in pairs(mobs:GetChildren()) do
+                local humanoid = mob:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    local mobPosition = mob.HumanoidRootPart.Position
+                    local attackerPosition = attacker.HumanoidRootPart.Position
+                    local distance = (mobPosition - attackerPosition).Magnitude
+
+                    if distance <= maxAttackDistance then
+                        humanoid.Health = 0  
+                    end
+                end
+            end
+        end
+        wait(3) 
+    end
+end
+
+local function autoTeleportToMob()
+    while true do
+        if autoTeleportEnabled and mobs then
+            local closestMob = nil
+            local closestDistance = maxAttackDistance
+            for i, mob in pairs(mobs:GetChildren()) do
+                local humanoid = mob:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    local mobPosition = mob.HumanoidRootPart.Position
+                    local attackerPosition = attacker.HumanoidRootPart.Position
+                    local distance = (mobPosition - attackerPosition).Magnitude
+
+                    if distance < closestDistance then
+                        closestDistance = distance
+                        closestMob = mob
+                    end
+                end
+            end
+
+            if closestMob then
+                -- Teleportando o jogador até o mob mais próximo
+                attacker.HumanoidRootPart.CFrame = closestMob.HumanoidRootPart.CFrame
+            end
+        end
+        wait(3)
+    end
+end
 
 local Tabs = {
     Main = Window:AddTab({ Title = "Player Options", Icon = "settings" }),
