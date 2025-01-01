@@ -436,7 +436,6 @@ local Toggle = Tabs.Main:AddToggle("AutoKillBoss", {Title = "Auto Kill Boss", De
 
 local function killthebitch()
     while getgenv().autokillboss do
-        if autoFarmEnabled and mobs then
             for i, mob in pairs(mobs:GetChildren()) do
                 local humanoid = mob:FindFirstChildOfClass("Humanoid")
                 if humanoid then
@@ -466,7 +465,6 @@ local Toggle = Tabs.Main:AddToggle("AutoTeleport", {Title = "Auto Teleport Boss 
 
 local function autoTeleportToMob()
     while getgenv().autotp do
-        if autoTeleportEnabled and mobs then
             local closestMob = nil
             local closestDistance = maxAttackDistance
             for i, mob in pairs(mobs:GetChildren()) do
