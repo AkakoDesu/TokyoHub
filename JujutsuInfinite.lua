@@ -434,8 +434,8 @@ local Farm = Tabs.Main:AddSection("Please use Auto Execute! save config in Setti
 
 local Toggle = Tabs.Main:AddToggle("AutoKillBoss", {Title = "Auto Kill Boss", Default = false})
 
-local function autoFarmMobs()
-    while true do
+local function killthebitch()
+    while getgenv().autokillboss do
         if autoFarmEnabled and mobs then
             for i, mob in pairs(mobs:GetChildren()) do
                 local humanoid = mob:FindFirstChildOfClass("Humanoid")
@@ -450,12 +450,22 @@ local function autoFarmMobs()
                 end
             end
         end
-        wait(3) 
+        wait(0) 
     end
 end
 
+Toggle:OnChanged(function()
+    getgenv().autokillboss = Toggle.Value
+
+    if getgenv().autokillboss then
+        killthebitch() 
+    end
+end)
+
+local Toggle = Tabs.Main:AddToggle("AutoTeleport", {Title = "Auto Teleport Boss Spawn", Default = false})
+
 local function autoTeleportToMob()
-    while true do
+    while getgenv().autotp do
         if autoTeleportEnabled and mobs then
             local closestMob = nil
             local closestDistance = maxAttackDistance
@@ -477,9 +487,17 @@ local function autoTeleportToMob()
                 attacker.HumanoidRootPart.CFrame = closestMob.HumanoidRootPart.CFrame
             end
         end
-        wait(3)
+        wait(0)
     end
 end
+
+Toggle:OnChanged(function()
+    getgenv().autotp = Toggle.Value
+
+    if getgenv().autotp then
+        autoTeleportToMob() 
+    end
+end)
 
 local Tabs = {
     Main = Window:AddTab({ Title = "Player Options", Icon = "settings" }),
